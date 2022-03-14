@@ -1,9 +1,30 @@
+import React from 'react';
+import { Route, Switch } from 'react-router-dom'
+
 import './App.css';
+import { Navbar, Footer } from './layout'
+import { Home, Join } from './pages'
+
 
 function App() {
   return (
     <div className="App">
-        <h1>App</h1>
+        <Navbar />
+        <Switch>
+          <Route exact path="/">
+            <Home />
+          </Route>
+          {/* <Route path="/create-lobby">
+            <Create />
+  </Route> */}
+          <Route path="/join-lobby">
+            <Join />
+          </Route>
+          {/*<Route path="/leaderboard">
+            <Leaderboard />
+          </Route> */}
+        </Switch>
+        <Footer />
     </div>
   );
 }
