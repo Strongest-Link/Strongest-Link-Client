@@ -29,7 +29,7 @@ const JoinRoom = () => {
         <div>
             <div>
             <form onSubmit={handleSubmit}>
-                <label htmlFor="roomId">Enter Room ID</label>
+                <label htmlFor="roomId"><h3>Enter Room ID</h3></label>
                 <input
                     placeholder="Room ID"
                     aria-label="roomId"
@@ -38,7 +38,7 @@ const JoinRoom = () => {
                     type="text"
                 />
                 <br />
-                <label htmlFor="nickname">Enter Nickname</label>
+                <label htmlFor="nickname"><h3>Enter Nickname</h3></label>
                 <input
                     placeholder="Nickname"
                     aria-label="nickname"
