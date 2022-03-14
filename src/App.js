@@ -16,9 +16,9 @@ function App() {
           <Route exact path="/">
             <Home />
           </Route>
-          {/* <Route path="/create-lobby">
+          <Route path="/create-lobby">
             <CreateRoom />
-  </Route> */}
+          </Route>
           <Route path="/join-lobby">
             <Join />
           </Route>
