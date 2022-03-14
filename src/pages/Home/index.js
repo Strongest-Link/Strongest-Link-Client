@@ -1,10 +1,17 @@
 import React from 'react'
 import './index.css';
+import strongestLink from '../../images/sl-home.png'
 
 const Home = () => {
     return (
         <>
-        <h1>HOME</h1>
+            <img src={strongestLink} width="100%"/>
+            <h2>RULES: </h2>
+            <ul>
+                <li>1</li>
+                <li>2</li>
+                <li>3</li>
+            </ul>
         </>
     )
 }
