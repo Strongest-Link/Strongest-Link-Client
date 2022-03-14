@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Redirect } from 'react-router-dom';
 import './index.css'
 
 const JoinRoom = () => {
@@ -9,21 +10,32 @@ const JoinRoom = () => {
         const eventName = e.target.name;
 
         if (eventName === 'roomId') {
-            const roomId = e.target.value;
-            setState({ roomId });
-          } 
+            const id = e.target.value;
+            setState({ ...state, roomId: id});
+        } 
         if (eventName === 'nickname') {
-            const nickname = e.target.value;
-            setState({ nickname });
-          }
+            const nickName = e.target.value;
+            setState({ ...state, nickname: nickName });
+        }
+        
     };
 
     const handleSubmit = e => {
         e.preventDefault();
         let id = state.roomId
-        let name = state.nickname
-        // function that returns the room with the id entered
-    };
+        let nickName = state.nickname
+        console.log(state)
+        // return the room with the id entered
+        // return (
+        //     <Redirect
+        //       to={{
+        //         pathname: '/quiz',
+        //         search: `?=${id}`,
+        //         state: { referrer: '/' }
+        //       }}
+        //     />
+        //   );
+    }
     
         return (
         <div>
@@ -51,6 +63,7 @@ const JoinRoom = () => {
                     Join
                 </button>
             </form>
+            <br /><br /><br />
             </div>
         </div>
         );
