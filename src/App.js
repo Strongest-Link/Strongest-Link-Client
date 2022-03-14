@@ -3,7 +3,7 @@ import { Route, Switch } from 'react-router-dom'
 
 import './App.css';
 import { Navbar, Footer } from './layout'
-import { Home } from './pages'
+import { Home, Join } from './pages'
 
 
 function App() {
@@ -16,11 +16,11 @@ function App() {
           </Route>
           {/* <Route path="/create-lobby">
             <Create />
-          </Route>
+  </Route> */}
           <Route path="/join-lobby">
             <Join />
           </Route>
-          <Route path="/leaderboard">
+          {/*<Route path="/leaderboard">
             <Leaderboard />
           </Route> */}
         </Switch>
