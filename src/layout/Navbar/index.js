@@ -1,12 +1,13 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom';
 import './index.css';
+import logo from '../../images/sl-logo.png'
 
 const Navbar = () => {
     return (
         <nav >
             <NavLink exact to="/" activeClassName="active"><img
-                src="#"
+                src={logo}
                 alt="Logo"
                 className="nav-icon"
             />

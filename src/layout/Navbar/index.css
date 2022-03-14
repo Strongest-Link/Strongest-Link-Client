@@ -12,11 +12,11 @@ nav {
     font-weight: 700;
     font-size: 22px;
     text-decoration: none;
-    padding-right: 15px;
+    padding-right: 10px;
 }
 
 .nav-icon {
-    height: 30px;
-    margin-right: 50vw;
+    height: 90px;
+    margin-right: 40vw;
     margin-left: 20px;
 }
