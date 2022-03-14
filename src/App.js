@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom'
 import './App.css';
 import { Navbar, Footer } from './layout'
-import { Home, Join, CreateRoom } from './pages'
+import { Home, Join, CreateRoom, quiz } from './pages'
 
 
 
@@ -16,10 +16,13 @@ function App() {
           <Route exact path="/">
             <Home />
           </Route>
-          {/* <Route path="/create-lobby">
+          <Route path="/create-lobby">
             <CreateRoom />
-  </Route> */}
+          </Route>
           <Route path="/join-lobby">
+            <Join />
+          </Route>
+          <Route path="/quiz">
             <Join />
           </Route>
           {/*<Route path="/leaderboard">
@@ -33,3 +36,13 @@ function App() {
 }
 
 export default App;
+
+
+
+
+
+
+
+
+
+
