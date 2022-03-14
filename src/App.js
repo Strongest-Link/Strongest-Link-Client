@@ -1,21 +1,23 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom'
-
 import './App.css';
 import { Navbar, Footer } from './layout'
-import { Home, Join } from './pages'
+import { Home, Join, CreateRoom } from './pages'
+
 
 
 function App() {
   return (
     <div className="App">
+
+      
         <Navbar />
         <Switch>
           <Route exact path="/">
             <Home />
           </Route>
           {/* <Route path="/create-lobby">
-            <Create />
+            <CreateRoom />
   </Route> */}
           <Route path="/join-lobby">
             <Join />
@@ -25,6 +27,7 @@ function App() {
           </Route> */}
         </Switch>
         <Footer />
+
     </div>
   );
 }
