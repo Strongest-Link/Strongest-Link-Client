@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom'
 import './App.css';
 import { Navbar, Footer } from './layout'
-import { Home, Join, CreateRoom, quiz } from './pages'
+import { Home, Join, CreateRoom, Quiz } from './pages'
 
 
 
@@ -23,7 +23,7 @@ function App() {
             <Join />
           </Route>
           <Route path="/quiz">
-            <Join />
+            <Quiz />
           </Route>
           {/*<Route path="/leaderboard">
             <Leaderboard />
