@@ -1,30 +1,50 @@
 import React, { useState } from 'react';
+import './index.css'
 
 const JoinRoom = () => {
   
-    const [state, setState] = useState({ roomId: '' })
+    const [state, setState] = useState({ roomId: '', nickname: '' })
 
     const handleInput = e => {
-        const roomId = e.target.value;
-        setState({ roomId });
+        const eventName = e.target.name;
+
+        if (eventName === 'roomId') {
+            const roomId = e.target.value;
+            setState({ roomId });
+          } 
+        if (eventName === 'nickname') {
+            const nickname = e.target.value;
+            setState({ nickname });
+          }
     };
 
     const handleSubmit = e => {
         e.preventDefault();
         let id = state.roomId
+        let name = state.nickname
         // function that returns the room with the id entered
     };
     
         return (
         <div>
-            <label htmlFor="roomId">Enter Room ID</label>
             <div>
             <form onSubmit={handleSubmit}>
+                <label htmlFor="roomId">Enter Room ID</label>
                 <input
                     placeholder="Room ID"
                     aria-label="roomId"
                     name="roomId"
                     onChange={handleInput}
+                    type="text"
+                />
+                <br />
+                <label htmlFor="nickname">Enter Nickname</label>
+                <input
+                    placeholder="Nickname"
+                    aria-label="nickname"
+                    name="nickname"
+                    onChange={handleInput}
+                    type="text"
                 />
                 <br />
                 <button type="submit">
