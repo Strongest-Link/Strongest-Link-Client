@@ -1,11 +1,23 @@
-import './App.css';
+import React from 'react'
+import {
+  BrowserRouter,
+  Routes, // instead of "Switch"
+  Route,
+} from "react-router-dom"; // This is version 6
+import { Quiz } from "./pages";
 
-function App() {
+const App = () => {
+
+
   return (
-    <div className="App">
-        <h1>App</h1>
-    </div>
+      
+    <BrowserRouter>
+    <Routes>
+    <Route path="/quiz" element={<Quiz />}></Route>
+    </Routes>
+  </BrowserRouter>
   );
-}
+};
+
 
 export default App;
