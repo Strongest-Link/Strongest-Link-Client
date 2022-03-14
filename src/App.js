@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom'
 
 import './App.css';
-import { Navbar } from './layout'
+import { Navbar, Footer } from './layout'
 import { Home } from './pages'
 
 
@@ -24,6 +24,7 @@ function App() {
             <Leaderboard />
           </Route> */}
         </Switch>
+        <Footer />
     </div>
   );
 }
