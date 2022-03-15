@@ -2,14 +2,14 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom'
 import './App.css';
 import { Navbar, Footer } from './layout'
-import { Home, Join, CreateRoom, Quiz } from './pages'
+import { Home, Join, CreateRoom, Quiz, Leaderboard } from './pages'
 
 
 
 function App() {
+
   return (
     <div className="App">
-
       
         <Navbar />
         <Switch>
@@ -25,9 +25,9 @@ function App() {
           <Route path="/quiz">
             <Quiz />
           </Route>
-          {/*<Route path="/leaderboard">
+          <Route path="/leaderboard">
             <Leaderboard />
-          </Route> */}
+          </Route>
         </Switch>
         <Footer />
 
