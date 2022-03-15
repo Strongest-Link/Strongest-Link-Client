@@ -39,8 +39,6 @@ const JoinRoom = () => {
         //     />
         //   );
 
-        // Get url
-
         // history.push(`/waiting-room`);
     }
     
