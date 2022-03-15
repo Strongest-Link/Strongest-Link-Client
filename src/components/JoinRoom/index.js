@@ -7,14 +7,14 @@ const JoinRoom = () => {
 
     const history = useHistory();
   
-    const [state, setState] = useState({ roomId: '', nickname: '' })
+    const [state, setState] = useState({ lobbyname: '', nickname: '' })
 
     const handleInput = e => {
         const eventName = e.target.name;
 
-        if (eventName === 'roomId') {
-            const id = e.target.value;
-            setState({ ...state, roomId: id});
+        if (eventName === 'lobbyname') {
+            const lobbyName = e.target.value;
+            setState({ ...state, lobbyname: lobbyName});
         } 
         if (eventName === 'nickname') {
             const nickName = e.target.value;
@@ -25,7 +25,7 @@ const JoinRoom = () => {
 
     const handleSubmit = e => {
         e.preventDefault();
-        let id = state.roomId
+        let lobbyName = state.lobbyname
         let nickName = state.nickname
         console.log(state)
         
@@ -33,7 +33,7 @@ const JoinRoom = () => {
         //     <Redirect
         //       to={{
         //         pathname: '/quiz',
-        //         search: `?=${id}`,
+        //         search: `?=${lobbyName}`,
         //         state: { referrer: '/' }
         //       }}
         //     />
@@ -46,18 +46,18 @@ const JoinRoom = () => {
         <div>
             <div>
             <form onSubmit={handleSubmit}>
-                <label htmlFor="roomId"><h3>Enter Room ID</h3></label>
+                <label htmlFor="lobbyname"><h3>Enter Lobby Name</h3></label>
                 <input
-                    placeholder="Room ID"
-                    aria-label="roomId"
-                    name="roomId"
+                    placeholder="Lobby Name"
+                    aria-label="lobbyname"
+                    name="lobbyname"
                     onChange={handleInput}
                     type="text"
-                    value={state.roomId}
+                    value={state.lobbyname}
                     required
                 />
                 <br />
-                <label htmlFor="nickname"><h3>Enter Nickname</h3></label>
+                <label htmlFor="nickname"><h3>Enter Your Nickname</h3></label>
                 <input
                     placeholder="Nickname"
                     aria-label="nickname"
