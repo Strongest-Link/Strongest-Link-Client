@@ -9,7 +9,9 @@ import AnswerD from '../../components/AnswerD';
 
 
 
-function Quiz() {
+function Quiz(category,difficulty, numberOfQuestions) {
+
+
 
   const [ theQuestion, setTheQuestion ] = useState('Question ...');
   const [ choiceA, setChoiceA ] = useState('Answer A ...');
@@ -19,7 +21,7 @@ function Quiz() {
 
   const prop =""
 
-  useEffect((prop) => {
+  useEffect((prop, category, difficulty, numberOfQuestions) => {
 
     const choiceTextElements = document.getElementsByClassName('choice-text');
     const choices = [];
@@ -49,9 +51,9 @@ function Quiz() {
     let questions = [];   
 
 
-
     fetch(
-        'https://opentdb.com/api.php?amount=10&category=9&difficulty=easy&type=multiple'
+      'https://opentdb.com/api.php?amount=10&category=9&difficulty=easy&type=multiple'
+      //`https://opentdb.com/api.php?amount=${numberOfQuestions}&category=${category}&difficulty=${difficulty}&type=multiple`
     )
         .then((res) => {
             return res.json();
@@ -74,19 +76,22 @@ function Quiz() {
                     formattedQuestion['choice' + (index + 1)] = choice;
                 });
     
-           
+               
                 return formattedQuestion;
             });
+            alert(category);
             startGame();
         })
         .catch((err) => {
             console.error(err);
         });
     
+        
     // //CONSTANTS
     const CORRECT_BONUS = 10;
     const MAX_QUESTIONS = 3;
     
+
     function startGame (){
  
        questionCounter = 0;
@@ -100,7 +105,7 @@ function Quiz() {
         if (availableQuestions.length === 0 || questionCounter >= MAX_QUESTIONS) {
             localStorage.setItem('mostRecentScore', score);
             //go to the end page
-            return window.location.assign('/Leaderboard');
+            //return window.location.assign('/Leaderboard');
          
         }
         questionCounter++;
@@ -133,7 +138,7 @@ function Quiz() {
             const selectedAnswer = selectedChoice.dataset['number'];
     
             const classToApply =
-                selectedAnswer == currentQuestion.answer ? 'correct' : 'incorrect';
+                selectedAnswer === currentQuestion.answer ? 'correct' : 'incorrect';
     
             if (classToApply === 'correct') {
                 incrementScore(CORRECT_BONUS);

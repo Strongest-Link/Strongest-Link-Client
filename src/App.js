@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom'
 import './App.css';
 import { Navbar, Footer } from './layout'
-import { Home, Join, CreateRoom, Quiz, Leaderboard } from './pages'
+import { Home, Join, Create, Quiz, Leaderboard } from './pages'
 
 
 
@@ -17,12 +17,12 @@ function App() {
             <Home />
           </Route>
           <Route path="/create-lobby">
-            <CreateRoom />
+            <Create />
           </Route>
           <Route path="/join-lobby">
             <Join />
           </Route>
-          <Route path="/quiz">
+          <Route path="/quiz/:category/:difficulty/:numberOfQuestions" > 
             <Quiz />
           </Route>
           <Route path="/leaderboard">
