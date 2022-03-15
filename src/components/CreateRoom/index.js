@@ -12,7 +12,7 @@ import WaitingRoom from "../WaitingRoom";
 
 
 
-const QuizSelect = () =>{
+const CreateRoom = () =>{
     const [category, setCategory] = useState([])
 
 
@@ -135,4 +135,4 @@ return (
     </>
 )
 }
-export default QuizSelect;
+export default CreateRoom;
