@@ -30,22 +30,28 @@ const LeaderBoardTable = () => {
     return (
         <div className="leaderboard-table">
             <table className='table'>
-                <tr>
-                    <th className='table-header'>Rank</th>
-                    <th className='table-header'>Username</th>
-                    <th className='table-header'>Score</th>
-                </tr>
+                <tbody>
+                    <tr>
+                        <th className='table-header'>Rank</th>
+                        <th className='table-header'>Username</th>
+                        <th className='table-header'>Score</th>
+                    </tr>
+                </tbody>
                 {/* change this after to get the data from the api */}
-                <tr className='table-row'>
-                    <td>1</td>
-                    <td>User 1</td>
-                    <td>20</td>
-                </tr>
-                <tr className='table-row'>
-                    <td>2</td>
-                    <td>User 2</td>
-                    <td>10</td>
-                </tr>
+                <tbody>
+                    <tr className='table-row'>
+                        <td>1</td>
+                        <td>User 1</td>
+                        <td>20</td>
+                    </tr>
+                </tbody>
+                <tbody>
+                    <tr className='table-row'>
+                        <td>2</td>
+                        <td>User 2</td>
+                        <td>10</td>
+                    </tr>
+                </tbody>
             </table>
         </div>
     );
