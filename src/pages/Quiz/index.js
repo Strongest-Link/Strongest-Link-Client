@@ -1,12 +1,25 @@
-import React from "react";
+import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import "./index.css";
+import Question from '../../components/Question';
+import AnswerA from '../../components/AnswerA';
+import AnswerB from '../../components/AnswerB';
+import AnswerC from '../../components/AnswerC';
+import AnswerD from '../../components/AnswerD';
+
+
 
 function Quiz() {
 
-    const questionElement = document.getElementById("question");
-    let questionFoundFromDOM = ReactDOM.findDOMNode(questionElement);
+  const [ theQuestion, setTheQuestion ] = useState('Question ...');
+  const [ choiceA, setChoiceA ] = useState('Answer A ...');
+  const [ choiceB, setChoiceB ] = useState('Answer B ...');
+  const [ choiceC, setChoiceC ] = useState('Answer C ...');
+  const [ choiceD, setChoiceD ] = useState('Answer D ...');
 
+  const prop =""
+
+  useEffect((prop) => {
 
     const choiceTextElements = document.getElementsByClassName('choice-text');
     const choices = [];
@@ -18,23 +31,25 @@ function Quiz() {
         choices[3] = ReactDOM.findDOMNode(choiceTextElements[3]);
     }
 
-    const c = document.getElementById("progressText");
-    const progressText = ReactDOM.findDOMNode(c);
+    const progressTextElement = document.getElementById("progressText");
+    const progressText = ReactDOM.findDOMNode(progressTextElement);
 
-    const d = document.getElementById("score");
-    const scoreText = ReactDOM.findDOMNode(d);
+    const scoreElement = document.getElementById("score");
+    const scoreText = ReactDOM.findDOMNode(scoreElement);
 
-    const e = document.getElementById("progressBarFull");
-    const progressBarFull = ReactDOM.findDOMNode(e);
+    const progressBarFullElement = document.getElementById("progressBarFull");
+    const progressBarFull = ReactDOM.findDOMNode(progressBarFullElement);
 
     let currentQuestion = {};
     let acceptingAnswers = false;
     let score = 0;
     let questionCounter = 0;
-    let availableQuesions = [];
+    let availableQuestions = [];
 
-    let questions = [];
-    
+    let questions = [];   
+
+
+
     fetch(
         'https://opentdb.com/api.php?amount=10&category=9&difficulty=easy&type=multiple'
     )
@@ -59,7 +74,7 @@ function Quiz() {
                     formattedQuestion['choice' + (index + 1)] = choice;
                 });
     
-                console.log(formattedQuestion);
+           
                 return formattedQuestion;
             });
             startGame();
@@ -73,35 +88,39 @@ function Quiz() {
     const MAX_QUESTIONS = 3;
     
     function startGame (){
-        questionCounter = 0;
+ 
+       questionCounter = 0;
         score = 0;
-        availableQuesions = [...questions];
+        availableQuestions = [...questions];
+
         getNewQuestion();
     };
     
     function getNewQuestion (){
-        if (availableQuesions.length === 0 || questionCounter >= MAX_QUESTIONS) {
+        if (availableQuestions.length === 0 || questionCounter >= MAX_QUESTIONS) {
             localStorage.setItem('mostRecentScore', score);
             //go to the end page
-            return window.location.assign('');
+            return window.location.assign('/Leaderboard');
          
         }
         questionCounter++;
-        progressText.innerText = `Question ${questionCounter}/${MAX_QUESTIONS}`;
+
+        progressText.textContent = `Question ${questionCounter}/${MAX_QUESTIONS}`;
         //Update the progress bar
         progressBarFull.style.width = `${(questionCounter / MAX_QUESTIONS) * 100}%`;
     
-        const questionIndex = Math.floor(Math.random() * availableQuesions.length);
-        currentQuestion = availableQuesions[questionIndex];
+        const questionIndex = Math.floor(Math.random() * availableQuestions.length);
+        currentQuestion = availableQuestions[questionIndex];
 
-        questionFoundFromDOM.innerText = currentQuestion.question;
-    
-        choices.forEach((choice) => {
-            const number = choice.dataset['number'];
-            choice.innerText = currentQuestion['choice' + number];
-        });
-    
-        availableQuesions.splice(questionIndex, 1);
+        setTheQuestion(currentQuestion.question);
+             
+        setChoiceA(currentQuestion['choice1']);
+        setChoiceB(currentQuestion['choice2']);
+        setChoiceC(currentQuestion['choice3']);
+        setChoiceD(currentQuestion['choice4']);
+            
+   
+        availableQuestions.splice(questionIndex, 1);
         acceptingAnswers = true;
     };
     
@@ -128,20 +147,24 @@ function Quiz() {
             }, 1000);
         });
     });
+
+
     
     function incrementScore (num) {
         score += num;
         scoreText.innerText = score;
     };
-    
+
+
+  }, [prop])
 
   return (
 
-    <div class="container">
-    <div id="game" class="justify-center flex-column">
+    <div className="container">
+    <div id="game" className="justify-center flex-column">
       <div id="hud">
         <div id="hud-item">
-          <p id="progressText" class="hud-prefix">
+          <p id="progressText" className="hud-prefix">
             Question
           </p>
           <div id="progressBar">
@@ -149,35 +172,24 @@ function Quiz() {
           </div>
         </div>
         <div id="hud-item">
-          <p class="hud-prefix">
+          <p className="hud-prefix">
             Score
           </p>
-          <h1 class="hud-main-text" id="score">
+          <h1 className="hud-main-text" id="score">
             0
           </h1>
         </div>
       </div>
-      <h2 id="question">What is the answer to this questions?</h2>
-      <div class="choice-container">
-        <p class="choice-prefix">A</p>
-        <p class="choice-text" data-number="1">Choice 1</p>
-      </div>
-      <div class="choice-container">
-        <p class="choice-prefix">B</p>
-        <p class="choice-text" data-number="2">Choice 2</p>
-      </div>
-      <div class="choice-container">
-        <p class="choice-prefix">C</p>
-        <p class="choice-text" data-number="3">Choice 3</p>
-      </div>
-      <div class="choice-container">
-        <p class="choice-prefix">D</p>
-        <p class="choice-text" data-number="4">Choice 4</p>
-      </div>
+      <Question questionText={theQuestion} />
+      <AnswerA answerText={choiceA}/>
+      <AnswerB answerText={choiceB} />
+      <AnswerC answerText={choiceC} />
+      <AnswerD answerText={choiceD} />
     </div>
   </div>
   );
 
   }
+
 
 export default Quiz;
