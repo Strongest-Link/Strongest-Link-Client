@@ -1,0 +1,13 @@
+form {
+    text-align: center;
+}
+
+form > label {
+    padding: 10px;
+    display: block;
+}
+
+form > button {
+    padding: 5px 10px;
+    margin: 10px;
+}
