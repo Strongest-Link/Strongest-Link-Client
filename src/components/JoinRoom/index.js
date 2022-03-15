@@ -1,6 +1,9 @@
-import React, { useState } from 'react';
-import { Redirect } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router';
+import axios from "axios"
+import { v4 as uuidv4 } from "uuid";
+import { LobbyList } from '../../components'
+
 import './index.css'
 
 const JoinRoom = () => {
@@ -8,6 +11,7 @@ const JoinRoom = () => {
     const history = useHistory();
   
     const [state, setState] = useState({ lobbyname: '', nickname: '' })
+    const [lobbydata, setLobbydata] = useState([])
 
     const handleInput = e => {
         const eventName = e.target.name;
@@ -28,19 +32,27 @@ const JoinRoom = () => {
         let lobbyName = state.lobbyname
         let nickName = state.nickname
         console.log(state)
-        
-        // return (
-        //     <Redirect
-        //       to={{
-        //         pathname: '/quiz',
-        //         search: `?=${lobbyName}`,
-        //         state: { referrer: '/' }
-        //       }}
-        //     />
-        //   );
 
         // history.push(`/waiting-room`);
     }
+
+    useEffect(() => {
+        async function getLobbyData() {
+        try {
+            let { data } = await axios.get(`http://localhost:8000/games`);
+            console.log('this is data', data)
+            setLobbydata(data)
+            console.log('this is lobbydata', lobbydata)
+        } catch (err) {
+            alert(err.message);
+        }
+        }
+        console.log('before', lobbydata)
+        getLobbyData();
+        console.log('AFTER', lobbydata)
+    }, []);
+
+
     
         return (
         <div>
@@ -74,6 +86,9 @@ const JoinRoom = () => {
             </form>
             <br /><br /><br />
             </div>
+
+            <h1>Open Lobbies</h1>
+            <div className='lobby-div'><LobbyList results={lobbydata} /></div>
         </div>
         );
 }
