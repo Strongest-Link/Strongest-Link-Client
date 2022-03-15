@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
+import { useHistory } from 'react-router';
 import './index.css'
 
 const JoinRoom = () => {
+
+    const history = useHistory();
   
     const [state, setState] = useState({ roomId: '', nickname: '' })
 
@@ -25,7 +28,7 @@ const JoinRoom = () => {
         let id = state.roomId
         let nickName = state.nickname
         console.log(state)
-        // return the room with the id entered
+        
         // return (
         //     <Redirect
         //       to={{
@@ -35,6 +38,10 @@ const JoinRoom = () => {
         //       }}
         //     />
         //   );
+
+        // Get url
+
+        // history.push(`/waiting-room`);
     }
     
         return (
@@ -48,6 +55,8 @@ const JoinRoom = () => {
                     name="roomId"
                     onChange={handleInput}
                     type="text"
+                    value={state.roomId}
+                    required
                 />
                 <br />
                 <label htmlFor="nickname"><h3>Enter Nickname</h3></label>
@@ -57,6 +66,8 @@ const JoinRoom = () => {
                     name="nickname"
                     onChange={handleInput}
                     type="text"
+                    value={state.nickname}
+                    required
                 />
                 <br />
                 <button type="submit">
