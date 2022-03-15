@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router';
 import axios from "axios"
-import { v4 as uuidv4 } from "uuid";
 import { LobbyList } from '../../components'
 
 import './index.css'
