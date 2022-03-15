@@ -7,9 +7,9 @@ import { Home, Join, CreateRoom, Quiz, Leaderboard } from './pages'
 
 
 function App() {
+
   return (
     <div className="App">
-
       
         <Navbar />
         <Switch>
