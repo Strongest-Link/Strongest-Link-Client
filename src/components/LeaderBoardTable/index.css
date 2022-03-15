@@ -1,0 +1,26 @@
+.leaderboard-table {
+    display: flex;
+    justify-content: center;
+}
+
+.table {
+    padding: 40px;
+    text-align: center;
+    margin-bottom: 70px;
+    border-collapse: collapse;
+}
+
+.table-header {
+    font-weight: bolder;
+    margin: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 30px;
+    padding-right: 30px;
+    font-size: 26px;
+}
+
+.table-row {
+    border-bottom: 10px solid #0E1753;
+    
+}
