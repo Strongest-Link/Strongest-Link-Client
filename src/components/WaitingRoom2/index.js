@@ -7,7 +7,7 @@ import "./index.css"
 
 
  
-const WaitingRoom = () => {
+const WaitingRoom2 = () => {
     //useeffect for constantly checking players in lobby
     let {lobbyName} = useParams()
     const [lobbyData, setLobbyData] = useState("")
@@ -22,19 +22,21 @@ const WaitingRoom = () => {
     //console.log(lobbyData)
     const socket = io("http://localhost:8000")
     socket.emit("Host has joined waiting room")
-    if(data.players.length == 5){
-    window.open(`/Quiz/${data.options.category}/${data.options.level}/${data.options.questions}`)}}
+    /*if(data.players.length == 5){
+    window.open(`/Quiz/${i.topic}/${input.difficulty}/${input.questions}`)}*/}
 useEffect(() => {
     getData()
 },[])     
-       
+       /*if(data.players.length == 5){
+        window.open(`/Quiz/${input.topic}/${input.difficulty}/${input.questions}`)
+       }*/
       
        return(
         <>
         <div>
             <h1>Hello world</h1>
             <h2>Waiting room: {lobbyData.name}</h2>
-            <h3>{players}</h3>
+            <div><div className="small-header">Players: </div> {players.map((eachPlayer) => {return ( <span>{eachPlayer} <b>|</b> </span>)})}</div>
            
             
             
@@ -46,4 +48,4 @@ useEffect(() => {
   
     
 }
-export default WaitingRoom
+export default WaitingRoom2;
