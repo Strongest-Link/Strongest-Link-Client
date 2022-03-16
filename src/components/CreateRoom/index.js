@@ -2,6 +2,7 @@ import React, {useState, useEffect} from "react";
 import axios from "axios";
 import { io } from "socket.io-client";
 import WaitingRoom from "../WaitingRoom";
+import './index.css'
 
   // Need to fetch categories
   //need to pick number of qns
@@ -107,7 +108,7 @@ function handleSubmit(e){
 
 return (
     <>
-    <h1>Create a game</h1>
+    <h1 className="create-header">Create a game</h1>
     <section>
     <form className="gameForm" onSubmit= {handleSubmit} >
        
@@ -132,7 +133,7 @@ return (
     </input>
     <h3>Lobby Name</h3>
     <input type = "text" onChange={(e) => {setInput({...input,lobbyName:e.target.value})}}></input>
-    <input type = "submit" value ="Create a game"/>
+    <input className='create-button' type = "submit" value ="Create a game"/>
 
 
     </form>
