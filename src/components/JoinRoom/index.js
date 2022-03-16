@@ -9,15 +9,15 @@ const JoinRoom = () => {
 
     const history = useHistory();
   
-    const [state, setState] = useState({ lobbyId: '', nickname: '' })
+    const [state, setState] = useState({ lobbyname: '', nickname: '' })
     const [lobbydata, setLobbydata] = useState([])
 
     const handleInput = e => {
         const eventName = e.target.name;
 
-        if (eventName === 'lobbyId') {
-            const lobbyId = e.target.value;
-            setState({ ...state, lobbyId: lobbyId});
+        if (eventName === 'lobbyname') {
+            const lobbyName = e.target.value;
+            setState({ ...state, lobbyname: lobbyName});
         } 
         if (eventName === 'nickname') {
             const nickName = e.target.value;
@@ -27,13 +27,13 @@ const JoinRoom = () => {
     };
 
     const handleSubmit = e => {
-        let lobbyId = state.lobbyId
+        let lobbyName = state.lobbyname.replace(/\s/g, "%20");
         let nickName = state.nickname
         console.log(state)
 
         // add person to the players array
         const toSend = { username: nickName };
-        axios.post(`http://localhost:8000/games/${lobbyId}`, toSend)
+        axios.post(`http://localhost:8000/games/${lobbyName}`, toSend)
         .then(response => console.log(response))
         .catch(error => {
             console.error('There was an error!', error);
@@ -59,11 +59,11 @@ const JoinRoom = () => {
         <div>
             <div>
             <form onSubmit={handleSubmit}>
-                <label htmlFor="lobbyId"><h3>Enter Lobby ID</h3></label>
+                <label htmlFor="lobbyId"><h3>Enter Lobby Name</h3></label>
                 <input
-                    placeholder="Lobby ID"
-                    aria-label="lobbyId"
-                    name="lobbyId"
+                    placeholder="Lobby Name"
+                    aria-label="lobbyName"
+                    name="lobbyname"
                     onChange={handleInput}
                     type="text"
                     value={state.lobbyId}
