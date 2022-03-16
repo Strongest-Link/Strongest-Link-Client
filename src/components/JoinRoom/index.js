@@ -86,7 +86,7 @@ const JoinRoom = () => {
             <br /><br /><br />
             </div>
 
-            <h1>Open Lobbies</h1>
+            <h1 className='lobbies-header'>Open Lobbies</h1>
             <div className='lobby-div'><LobbyList results={lobbydata} /></div>
         </div>
         );
