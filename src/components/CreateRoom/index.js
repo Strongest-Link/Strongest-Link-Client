@@ -3,6 +3,9 @@ import axios from "axios";
 import { io } from "socket.io-client";
 
 import './index.css'
+import { useHistory } from "react-router"
+import { WaitingRoom } from "..";
+
 
 
 
@@ -17,8 +20,7 @@ import './index.css'
 
 
 const CreateRoom = () =>{
-    const [category, setCategory] = useState([])
-
+    const [category, setCategory] = useState([]);const history = useHistory();
 
 
     //create a function that maps 1-20
@@ -57,33 +59,7 @@ const [input, setInput ] = useState({questions: 1 , topic: "", difficulty: "" ,t
 //once connected send host to waiting room
 
 
-const WaitingRoom = () => {
-    //useeffect for constantly checking players in lobby
-    
-    
-   useEffect(()=> {  
-       const data =  axios.get(`http://localhost:8000/${input.name}`)
-       if(data.players.length == 5){
-        window.open(`/Quiz/${input.topic}/${input.difficulty}/${input.questions}`)
-       } 
-       return(
-        <>
-        <div>
-            <h1>Waiting room: {data.name}</h1>
-            {data.map( player => {
-                <article value = {player.data.players}
-                ></article>
-                
-            })}
-            
-        </div>
-        </>
-        
 
-    )
-   })
-    
-}
 const initGame = async(e) => {
     try{
     const socket = await io("http://localhost:8000");//after post request look for lobby with specified name
@@ -91,10 +67,9 @@ const initGame = async(e) => {
         console.log("connected to socket", socket.id)})
     const gameData = await axios.get(`http://localhost:8000/${input.name}`)
     socket.on(`connecting to lobby:${gameData.name}`, () =>{
-        console.log("connected to lobby")
+        socket.emit(`${gameData.name}`, gameData.name)
     })
-    socket.on(`load waiting room ${gameData.name}`,
-    console.log("loading waiting room") )
+    console.log("loading waiting room")
     
     
    }
@@ -106,7 +81,7 @@ const initGame = async(e) => {
 const postData = async() => {
     try{
         const data = await axios.post("http://localhost:8000/games", input)
-        await (console.log(data))
+        //await (console.log(data))
         }
         catch(err){
             console.log("Error sending lobby data")
@@ -122,11 +97,10 @@ function handleSubmit(e){
     e.preventDefault();
     postData()
     console.log(input)
-    //initGame();
+    initGame();
     setInput("")
-    WaitingRoom()
-       
-    window.open(`/Quiz/${input.topic}/${input.difficulty}/${input.questions}`);
+    history.push("/Waiting-room")
+    
 
     
     
@@ -159,7 +133,7 @@ return (
     <input type = "text" onChange={(e) => {setInput({...input,host:e.target.value})}}  >
     </input>
     <h3>Lobby Name</h3>
-    <input type = "text" onChange={(e) => {setInput({...input,lobbyName:e.target.value})}}></input>
+    <input type = "text" onChange={(e) => {setInput({...input,name:e.target.value})}}></input>
     <input className='create-button' type = "submit" value ="Create a game"/>
 
 
