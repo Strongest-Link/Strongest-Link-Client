@@ -42,7 +42,7 @@ useEffect(() => {
     console.log("connected to socket", socket.id)
 })
 }, [])
-const [input, setInput ] = useState({questions: 1 , topic: "", difficulty: "" ,type:"multiple choice", encoding:'Default Encoding', hostUsername: "user",lobbyName: "lobby" })
+const [input, setInput ] = useState({questions: 5 , topic: 9, difficulty: "easy" ,type:"multiple choice", encoding:'Default Encoding', hostUsername: "user",lobbyName: "lobby" })
 
 
 //handling connection to trial server
@@ -94,6 +94,12 @@ function handleSubmit(e){
     console.log(input)
     createGame();
     setInput("")
+
+
+           
+    window.open(`/Quiz/${input.topic}/${input.difficulty}/${input.questions}`);
+
+    
     
     
 }
@@ -107,7 +113,7 @@ return (
        
     <h3>Category</h3>
         <select className="categories" name = "category" onChange={(e) => {setInput({...input,topic:e.target.value})}} >
-            {category.map(testing => <option>{testing.name}</option>)}
+            {category.map(testing => <option value={testing.id}>{testing.name}</option>)}
         </select>
         <h3>Difficulty</h3>
         <select className="difficulty" name="difficulty" onChange={(e) => {setInput({...input,difficulty:e.target.value})}}>
