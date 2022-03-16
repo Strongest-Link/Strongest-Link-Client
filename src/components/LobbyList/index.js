@@ -11,10 +11,12 @@ const LobbyList = ({ results }) => {
       <>
         <div className="wholeLobby">
           <div className="eachLobby">
-            <h2>{eachLobby.name}</h2>
-            <div>
-              <h3>Host: {eachLobby.host}</h3>
-              <h3>Players: {eachLobby.players.map((eachPlayer) => {return ( <h4>{eachPlayer}</h4> )})}</h3>
+            <span className="lobbyname-div">
+              <span className="lobbyname">{eachLobby.name}</span>
+            </span>
+            <div className="info-div">
+                <div><div className="small-header">Host: </div><span>{eachLobby.host}</span> </div>
+                <div><div className="small-header">Players: </div> {eachLobby.players.map((eachPlayer) => {return ( <span>{eachPlayer} | </span>)})}</div>
             </div>
           </div>
         </div>
