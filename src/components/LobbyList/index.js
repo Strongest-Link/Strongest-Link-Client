@@ -2,8 +2,6 @@ import React, {useState} from "react";
 import './index.css'
 
 const LobbyList = ({ results }) => {
-   
-  const [LobbyInfo, showLobbyInfo] = useState(false);
  
   const displayResults = results.map((eachLobby) => { 
 
