@@ -2,6 +2,10 @@ import React, {useState, useEffect} from "react";
 import axios from "axios";
 import { io } from "socket.io-client";
 
+import './index.css'
+
+
+
 
   // Need to fetch categories
   //need to pick number of qns
@@ -12,7 +16,7 @@ import { io } from "socket.io-client";
 
 
 
-const QuizSelect = () =>{
+const CreateRoom = () =>{
     const [category, setCategory] = useState([])
 
 
@@ -42,7 +46,9 @@ useEffect(() => {
     console.log("connected to socket", socket.id)
 })
 }, [])
+
 const [input, setInput ] = useState({questions: 1 , topic: "", difficulty: "" ,type:"multiple choice", encoding:'Default Encoding', host: "user",name: "lobby"})
+
 
 //handling connection to trial server
 //post data to server
@@ -118,7 +124,9 @@ function handleSubmit(e){
     console.log(input)
     //initGame();
     setInput("")
-    WaitingRoom()
+       
+    window.open(`/Quiz/${input.topic}/${input.difficulty}/${input.questions}`);
+
     
     
 }
@@ -126,13 +134,13 @@ function handleSubmit(e){
 
 return (
     <>
-    <h1>Create a game</h1>
+    <h1 className="create-header">Create a game</h1>
     <section>
     <form className="gameForm" onSubmit= {handleSubmit} >
        
     <h3>Category</h3>
         <select className="categories" name = "category" onChange={(e) => {setInput({...input,topic:e.target.value})}} >
-            {category.map(testing => <option>{testing.name}</option>)}
+            {category.map(testing => <option value={testing.id}>{testing.name}</option>)}
         </select>
         <h3>Difficulty</h3>
         <select className="difficulty" name="difficulty" onChange={(e) => {setInput({...input,difficulty:e.target.value})}}>
@@ -151,7 +159,7 @@ return (
     </input>
     <h3>Lobby Name</h3>
     <input type = "text" onChange={(e) => {setInput({...input,lobbyName:e.target.value})}}></input>
-    <input type = "submit" value ="Create a game"/>
+    <input className='create-button' type = "submit" value ="Create a game"/>
 
 
     </form>
@@ -160,4 +168,4 @@ return (
     </>
 )
 }
-export default QuizSelect;
+export default CreateRoom;

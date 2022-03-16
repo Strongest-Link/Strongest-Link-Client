@@ -6,20 +6,31 @@ import AnswerA from '../../components/AnswerA';
 import AnswerB from '../../components/AnswerB';
 import AnswerC from '../../components/AnswerC';
 import AnswerD from '../../components/AnswerD';
+import QuestionProgressBar from '../../components/QuestionProgressBar';
 
+import { useParams } from "react-router-dom";
 
 
 function Quiz() {
 
-  const [ theQuestion, setTheQuestion ] = useState('Question ...');
-  const [ choiceA, setChoiceA ] = useState('Answer A ...');
-  const [ choiceB, setChoiceB ] = useState('Answer B ...');
-  const [ choiceC, setChoiceC ] = useState('Answer C ...');
-  const [ choiceD, setChoiceD ] = useState('Answer D ...');
+  let { category } = useParams();
+  let { difficulty } = useParams();
+  let { numberOfQuestions } = useParams();
 
-  const prop =""
+    // //CONSTANTS
+  const CORRECT_BONUS = 10;
 
-  useEffect((prop) => {
+   
+  // &nbsp; is the text encoding for a space character. Added one to each default state to prove our decoding is working. 
+  const [ theQuestion, setTheQuestion ] = useState('Question&nbsp;...');
+  const [ choiceA, setChoiceA ] = useState('Answer&nbsp;A ...');
+  const [ choiceB, setChoiceB ] = useState('Answer&nbsp;B ...');
+  const [ choiceC, setChoiceC ] = useState('Answer&nbsp;C ...');
+  const [ choiceD, setChoiceD ] = useState('Answer&nbsp;D ...');
+
+   useEffect(() => {
+
+    let questionCounter = 0;
 
     const choiceTextElements = document.getElementsByClassName('choice-text');
     const choices = [];
@@ -31,27 +42,18 @@ function Quiz() {
         choices[3] = ReactDOM.findDOMNode(choiceTextElements[3]);
     }
 
-    const progressTextElement = document.getElementById("progressText");
-    const progressText = ReactDOM.findDOMNode(progressTextElement);
-
     const scoreElement = document.getElementById("score");
     const scoreText = ReactDOM.findDOMNode(scoreElement);
-
-    const progressBarFullElement = document.getElementById("progressBarFull");
-    const progressBarFull = ReactDOM.findDOMNode(progressBarFullElement);
 
     let currentQuestion = {};
     let acceptingAnswers = false;
     let score = 0;
-    let questionCounter = 0;
     let availableQuestions = [];
 
     let questions = [];   
 
-
-
     fetch(
-        'https://opentdb.com/api.php?amount=10&category=9&difficulty=easy&type=multiple'
+     `https://opentdb.com/api.php?amount=${numberOfQuestions}&category=${category}&difficulty=${difficulty}&type=multiple`
     )
         .then((res) => {
             return res.json();
@@ -74,22 +76,24 @@ function Quiz() {
                     formattedQuestion['choice' + (index + 1)] = choice;
                 });
     
-           
+               
                 return formattedQuestion;
             });
+        
             startGame();
         })
         .catch((err) => {
             console.error(err);
         });
     
-    // //CONSTANTS
-    const CORRECT_BONUS = 10;
-    const MAX_QUESTIONS = 3;
+        
     
+    
+
     function startGame (){
  
-       questionCounter = 0;
+        questionCounter = 0;
+
         score = 0;
         availableQuestions = [...questions];
 
@@ -97,18 +101,20 @@ function Quiz() {
     };
     
     function getNewQuestion (){
-        if (availableQuestions.length === 0 || questionCounter >= MAX_QUESTIONS) {
+        if (availableQuestions.length === 0 || questionCounter >= numberOfQuestions) {
             localStorage.setItem('mostRecentScore', score);
             //go to the end page
             return window.location.assign('/Leaderboard');
          
         }
+        
         questionCounter++;
-
-        progressText.textContent = `Question ${questionCounter}/${MAX_QUESTIONS}`;
-        //Update the progress bar
-        progressBarFull.style.width = `${(questionCounter / MAX_QUESTIONS) * 100}%`;
-    
+        // Update the progress bar using the DOM and not by setState so that we do not trigger useEffect infinite loop 
+        const questionCounterElement = document.getElementById("questionCounter");
+        const progressBarFullElement = document.getElementById("progressBarFull");
+        questionCounterElement.innerText = questionCounter;
+        progressBarFullElement.style.width = `${(questionCounter / numberOfQuestions) * 100}%`;
+  
         const questionIndex = Math.floor(Math.random() * availableQuestions.length);
         currentQuestion = availableQuestions[questionIndex];
 
@@ -132,15 +138,17 @@ function Quiz() {
             const selectedChoice = e.target;
             const selectedAnswer = selectedChoice.dataset['number'];
     
-            const classToApply =
-                selectedAnswer == currentQuestion.answer ? 'correct' : 'incorrect';
+            // We need to use == here and not ===. We are only testing that they have the same value.
+            var isCorrectAnswer = (selectedAnswer == currentQuestion.answer);
+
+            const classToApply = (isCorrectAnswer ? 'correct' : 'incorrect');
     
             if (classToApply === 'correct') {
                 incrementScore(CORRECT_BONUS);
             }
     
             selectedChoice.parentElement.classList.add(classToApply);
-    
+
             setTimeout(() => {
                 selectedChoice.parentElement.classList.remove(classToApply);
                 getNewQuestion();
@@ -155,8 +163,7 @@ function Quiz() {
         scoreText.innerText = score;
     };
 
-
-  }, [prop])
+  }, [category, difficulty, numberOfQuestions]) // These properties must not change otherwise the fetching won't pause for each question
 
   return (
 
@@ -164,12 +171,7 @@ function Quiz() {
     <div id="game" className="justify-center flex-column">
       <div id="hud">
         <div id="hud-item">
-          <p id="progressText" className="hud-prefix">
-            Question
-          </p>
-          <div id="progressBar">
-            <div id="progressBarFull"></div>
-          </div>
+          <QuestionProgressBar maxQuestions={numberOfQuestions} />
         </div>
         <div id="hud-item">
           <p className="hud-prefix">

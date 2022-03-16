@@ -1,13 +1,13 @@
-import { QuizSelect } from "../../components";
+import { CreateRoom } from "../../components";
 import React from "react";
 
-function CreateRoom(){
+function Create(){
     return (
         <>
         <div>
-            <QuizSelect/>
+            <CreateRoom/>
         </div>
         </>
     )
 }
-export default CreateRoom;
+export default Create;

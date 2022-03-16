@@ -1,0 +1,38 @@
+.wholeLobby {
+    display: flex;
+    justify-content: center;
+}
+
+.eachLobby {
+    width: 80vw;
+    margin-bottom: 20px;
+    padding: 20px;
+    margin-bottom: 50px;
+    width: 450px;
+    border: 3px solid black;
+    border-radius: 20px;
+    padding-left: 20px;
+    margin-right: 20px; 
+    background-color: whitesmoke;
+    color: black;
+}
+
+.lobbyname-div {
+    text-align: left;
+    font-size: xx-large;
+    font-weight: 700;
+}
+
+.info-div {
+    text-align: right;
+    float: right;
+    max-width: 280px;
+}
+
+.small-header {
+    display: inline;
+    font-weight: 700;
+    font-size: 16px;
+}
+
+

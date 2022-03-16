@@ -1,3 +1,13 @@
+.create-header {
+    text-align: center;
+}
+
+.create-button {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    margin-bottom: 40px;
 article{
     border-radius: 3px;
     border-color: black;
