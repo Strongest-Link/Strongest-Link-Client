@@ -1,8 +1,11 @@
 import React, {useState, useEffect} from "react";
 import axios from "axios";
 import { io } from "socket.io-client";
-import WaitingRoom from "../WaitingRoom";
+
 import './index.css'
+
+
+
 
   // Need to fetch categories
   //need to pick number of qns
@@ -43,7 +46,8 @@ useEffect(() => {
     console.log("connected to socket", socket.id)
 })
 }, [])
-const [input, setInput ] = useState({questions: 5 , topic: 9, difficulty: "easy" ,type:"multiple choice", encoding:'Default Encoding', hostUsername: "user",lobbyName: "lobby" })
+
+const [input, setInput ] = useState({questions: 1 , topic: "", difficulty: "" ,type:"multiple choice", encoding:'Default Encoding', host: "user",name: "lobby"})
 
 
 //handling connection to trial server
@@ -51,22 +55,47 @@ const [input, setInput ] = useState({questions: 5 , topic: 9, difficulty: "easy"
 //server creates lobby with lobbyname
 //connect to room with lobbyname and register host
 //once connected send host to waiting room
-const createGame = async(e) => {
+
+
+const WaitingRoom = () => {
+    //useeffect for constantly checking players in lobby
+    
+    
+   useEffect(()=> {  
+       const data =  axios.get(`http://localhost:8000/${input.name}`)
+       if(data.players.length == 5){
+           //Bojin start quiz game here
+       } 
+       return(
+        <>
+        <div>
+            <h1>Waiting room: {data.name}</h1>
+            {data.map( player => {
+                <article value = {player.data.players}
+                ></article>
+                
+            })}
+            
+        </div>
+        </>
+        
+
+    )
+   })
+    
+}
+const initGame = async(e) => {
     try{
     const socket = await io("http://localhost:8000");//after post request look for lobby with specified name
     socket.on("connect", () => {
         console.log("connected to socket", socket.id)})
-    const gameData = await axios.get(`http://localhost:8000/${input.lobbyName}`)
-    socket.on(`connecting to lobby:${gameData.lobbyName}`, () =>{
+    const gameData = await axios.get(`http://localhost:8000/${input.name}`)
+    socket.on(`connecting to lobby:${gameData.name}`, () =>{
         console.log("connected to lobby")
     })
-    socket.on(`load waiting room ${gameData.lobbyName}`,
+    socket.on(`load waiting room ${gameData.name}`,
     console.log("loading waiting room") )
-    return(
-        <>
-        <WaitingRoom/>
-        </>
-    )
+    
     
    }
     catch(err){
@@ -76,8 +105,8 @@ const createGame = async(e) => {
 
 const postData = async() => {
     try{
-        const data = await axios.post("", input)
-        console.log(data)
+        const data = await axios.post("http://localhost:8000/games", input)
+        await (console.log(data))
         }
         catch(err){
             console.log("Error sending lobby data")
@@ -93,14 +122,11 @@ function handleSubmit(e){
     e.preventDefault();
     postData()
     console.log(input)
-    createGame();
+    //initGame();
     setInput("")
-
-
-           
+       
     window.open(`/Quiz/${input.topic}/${input.difficulty}/${input.questions}`);
 
-    
     
     
 }
@@ -129,7 +155,7 @@ return (
         <option value = "20">20</option>
     </select>
     <h3> Nickname</h3>
-    <input type = "text" onChange={(e) => {setInput({...input,hostUsername:e.target.value})}}  >
+    <input type = "text" onChange={(e) => {setInput({...input,host:e.target.value})}}  >
     </input>
     <h3>Lobby Name</h3>
     <input type = "text" onChange={(e) => {setInput({...input,lobbyName:e.target.value})}}></input>
