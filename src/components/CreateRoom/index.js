@@ -64,7 +64,7 @@ const WaitingRoom = () => {
    useEffect(()=> {  
        const data =  axios.get(`http://localhost:8000/${input.name}`)
        if(data.players.length == 5){
-           //Bojin start quiz game here
+        window.open(`/Quiz/${input.topic}/${input.difficulty}/${input.questions}`)
        } 
        return(
         <>
@@ -124,6 +124,7 @@ function handleSubmit(e){
     console.log(input)
     //initGame();
     setInput("")
+    WaitingRoom()
        
     window.open(`/Quiz/${input.topic}/${input.difficulty}/${input.questions}`);
 
