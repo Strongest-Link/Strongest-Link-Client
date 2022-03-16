@@ -21,9 +21,9 @@ const WaitingRoom = () => {
     //console.log(lobbyData)
     //console.log(lobbyData)
     const socket = io("http://localhost:8000")
-    socket.emit("Host has joined waiting room")
-    if(data.players.length == 5){
-    window.open(`/Quiz/${data.options.category}/${data.options.level}/${data.options.questions}`)}}
+    socket.emit("Host has joined waiting room", )
+    if(data.players.length == 2){
+    window.open(`/Quiz/${data.options.category}/${data.options.level}/${data.options.totalQuestions}`)}}
 useEffect(() => {
     getData()
 },[])     
