@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router';
 import axios from "axios"
 import { LobbyList } from '../../components'
+import { useParams } from 'react-router-dom';
 
 import './index.css'
 
@@ -11,6 +12,7 @@ const JoinRoom = () => {
   
     const [state, setState] = useState({ lobbyname: '', nickname: '' })
     const [lobbydata, setLobbydata] = useState([])
+    let lobbyName = state.lobbyname
 
     const handleInput = e => {
         const eventName = e.target.name;
@@ -39,7 +41,7 @@ const JoinRoom = () => {
             console.error('There was an error!', error);
         });
 
-        // history.push(`/waiting-room`);
+        history.push(`/Waiting-room/${lobbyName}`)
     }
 
     

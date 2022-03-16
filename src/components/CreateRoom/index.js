@@ -5,6 +5,7 @@ import { io } from "socket.io-client";
 import './index.css'
 import { useHistory } from "react-router"
 import { WaitingRoom } from "..";
+import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 
 
 
@@ -49,7 +50,9 @@ useEffect(() => {
 })
 }, [])
 
-const [input, setInput ] = useState({questions: 1 , topic: "", difficulty: "" ,type:"multiple choice", encoding:'Default Encoding', host: "user",name: "lobby"})
+const [input, setInput ] = useState({options: {totalQuestions: 1 , category: "", level: "" ,type:"multiple choice", encoding:'Default Encoding'}, host: "user",name: "lobby"})
+
+let lobbyName = input.name
 
 
 //handling connection to trial server
@@ -97,14 +100,15 @@ function handleSubmit(e){
     e.preventDefault();
     postData()
     console.log(input)
-    initGame();
+    //initGame();
     setInput("")
-    history.push("/Waiting-room")
+    history.push(`/Waiting-room/${lobbyName}`)
     
 
     
     
 }
+
 
 
 return (
@@ -114,17 +118,17 @@ return (
     <form className="gameForm" onSubmit= {handleSubmit} >
        
     <h3>Category</h3>
-        <select className="categories" name = "category" onChange={(e) => {setInput({...input,topic:e.target.value})}} >
+        <select className="categories" name = "category" onChange={(e) => {setInput({...input,options:{category:e.target.value}})}} >
             {category.map(testing => <option value={testing.id}>{testing.name}</option>)}
         </select>
         <h3>Difficulty</h3>
-        <select className="difficulty" name="difficulty" onChange={(e) => {setInput({...input,difficulty:e.target.value})}}>
+        <select className="difficulty" name="difficulty" onChange={(e) => {setInput({...input,options:{level:e.target.value}})}}>
           <option value="easy">Easy</option>
           <option value="medium">Medium</option>
           <option value="hard">Hard</option>
         </select>
     <h3>Number of Questions</h3>
-    <select className = "NumberOfQuestions"  onChange={(e) => {setInput({...input,questions:e.target.value})}}>
+    <select className = "NumberOfQuestions"  onChange={(e) => {setInput({...input,options:{totalQuestions:e.target.value}})}}>
         <option value = "5">5</option>
         <option value = "10">10</option>
         <option value = "20">20</option>

@@ -3,7 +3,7 @@ import { Route, Switch } from 'react-router-dom'
 import './App.css';
 import { Navbar, Footer } from './layout'
 import { Home, Join, Create, Quiz, Leaderboard } from './pages'
-import {WaitingRoom} from "./components"
+import {WaitingRoom, WaitingRoom2} from "./components"
 
 
 
@@ -29,7 +29,7 @@ function App() {
           <Route path="/leaderboard">
             <Leaderboard />
           </Route>
-          <Route path = "/Waiting-room">
+          <Route path = "/Waiting-room/:lobbyName">
           <WaitingRoom/>
           </Route>
         </Switch>

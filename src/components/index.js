@@ -9,3 +9,4 @@ export { default as AnswerD } from './AnswerD'
 export { default as QuestionProgressBar } from './QuestionProgressBar'
 export { default as LobbyList } from './LobbyList'
 export { default as WaitingRoom} from "./WaitingRoom"
+export {default as WaitingRoom2} from "./WaitingRoom2"
