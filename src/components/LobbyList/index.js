@@ -15,7 +15,8 @@ const LobbyList = ({ results }) => {
               <span className="lobbyname">{eachLobby.name}</span>
             </span>
             <div className="info-div">
-                <div><div className="small-header">Host: </div><span>{eachLobby.host}</span> </div>
+                <div><div className="small-header">ID: </div><span>{eachLobby.id}</span></div>
+                <div><div className="small-header">Host: </div><span>{eachLobby.host}</span></div>
                 <div><div className="small-header">Players: </div> {eachLobby.players.map((eachPlayer) => {return ( <span>{eachPlayer} | </span>)})}</div>
             </div>
           </div>
