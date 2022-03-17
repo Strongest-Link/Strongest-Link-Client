@@ -8,12 +8,13 @@ import AnswerC from "../../components/AnswerC";
 import AnswerD from "../../components/AnswerD";
 import QuestionProgressBar from "../../components/QuestionProgressBar";
 
-import { useParams } from "react-router-dom";
+
 
 function Quiz({ gameData }) {
-  // let { category } = useParams();
-  // let { difficulty } = useParams();
-  let { numberOfQuestions } = gameData.questions.length;
+
+  let numberOfQuestions  = gameData.questions.length;
+
+  console.log(gameData.questions);
 
   // //CONSTANTS
   const CORRECT_BONUS = 10;
@@ -26,7 +27,10 @@ function Quiz({ gameData }) {
   const [choiceD, setChoiceD] = useState("Answer&nbsp;D ...");
 
   useEffect(() => {
-    let questionCounter = 0;
+  let questionCounter = 0;
+  
+    //setTheQuestion(gameData.questions[questionCounter].question);
+
 
     const choiceTextElements = document.getElementsByClassName("choice-text");
     const choices = [];
@@ -63,27 +67,23 @@ function Quiz({ gameData }) {
         formattedQuestion["choice" + (index + 1)] = choice;
       });
 
+
+    
+
       return formattedQuestion;
     });
-    // startGame();
 
-    // function startGame() {
-    //   questionCounter = 0;
-
-    //   score = 0;
-    //   availableQuestions = [...questions];
-
-    //   getNewQuestion();
-    // }
 
     function getNewQuestion() {
+
       if (questions.length === 0 || questionCounter >= numberOfQuestions) {
         localStorage.setItem("mostRecentScore", score);
         //go to the end page
-        // return window.location.assign("/Leaderboard");
+         return window.location.assign("/Leaderboard");
       }
 
       questionCounter++;
+  
       // Update the progress bar using the DOM and not by setState so that we do not trigger useEffect infinite loop
       const questionCounterElement = document.getElementById("questionCounter");
       const progressBarFullElement = document.getElementById("progressBarFull");
@@ -102,13 +102,15 @@ function Quiz({ gameData }) {
       setChoiceC(currentQuestion["choice3"]);
       setChoiceD(currentQuestion["choice4"]);
 
+
       questions.splice(questionIndex, 1);
       acceptingAnswers = true;
     }
 
     choices.forEach((choice) => {
       choice.addEventListener("click", (e) => {
-        if (!acceptingAnswers) return;
+
+        //if (!acceptingAnswers) return;
 
         acceptingAnswers = false;
         const selectedChoice = e.target;
@@ -127,7 +129,9 @@ function Quiz({ gameData }) {
 
         setTimeout(() => {
           selectedChoice.parentElement.classList.remove(classToApply);
+ 
           getNewQuestion();
+
         }, 1000);
       });
     });
@@ -136,6 +140,9 @@ function Quiz({ gameData }) {
       score += num;
       scoreText.innerText = score;
     }
+
+    getNewQuestion();
+ 
   }, [numberOfQuestions]); // These properties must not change otherwise the fetching won't pause for each question
 
   return (
