@@ -54,21 +54,7 @@ const CreateRoom = () =>{
     //once connected send host to waiting room
 
 
-    const initGame = async(e) => {
-        try{
-        const socket = await io("http://localhost:8000");//after post request look for lobby with specified name
-        socket.on("connect", () => {
-            console.log("connected to socket", socket.id)})
-        const gameData = await axios.get(`http://localhost:8000/${input.name}`)
-        socket.on(`connecting to lobby:${gameData.name}`, () =>{
-            socket.emit(`${gameData.name}`, gameData.name)
-        })
-        console.log("loading waiting room")
-        }
-        catch(err) {
-            console.log("error creating lobby")
-        }
-    } 
+    
 
     const postData = async() => {
         try{
@@ -90,7 +76,6 @@ const CreateRoom = () =>{
         e.preventDefault();
         postData()
         console.log(input)
-        //initGame();
         setInput("")
         history.push(`/Waiting-room/${lobbyName}`)
         

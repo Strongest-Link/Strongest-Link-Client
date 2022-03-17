@@ -20,8 +20,19 @@ const WaitingRoom = () => {
     setPlayers(data.players)
     //console.log(lobbyData)
     //console.log(lobbyData)
-    const socket = io("http://localhost:8000")
-    socket.emit("Host has joined waiting room", )
+    const socket = await io("http://localhost:8000");
+    //after post request look for lobby with specified name
+    socket.on("connect", () => {
+        console.log("connected to socket", socket.id)})
+    
+    socket.emit('joinroom',(data.name))
+    socket.on('game', (message) => {
+        console.log(message)
+    })
+
+       
+        
+    
     if(data.players.length == 2){
     window.open(`/Quiz/${data.options.category}/${data.options.level}/${data.options.totalQuestions}`)}}
 useEffect(() => {

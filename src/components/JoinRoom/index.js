@@ -3,7 +3,7 @@ import { useHistory } from 'react-router';
 import axios from "axios"
 import { LobbyList } from '../../components'
 import { useParams } from 'react-router-dom';
-
+import {io} from "socket.io-client";
 import './index.css'
 
 const JoinRoom = () => {
@@ -40,7 +40,8 @@ const JoinRoom = () => {
         .catch(error => {
             console.error('There was an error!', error);
         });
-
+        const socket = await io("http://localhost:8000");
+        socket.emit("setusername", (data))
         history.push(`/Waiting-room/${lobbyName}`)
     }
 
