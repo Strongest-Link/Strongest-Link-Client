@@ -3,9 +3,11 @@ import axios from "axios";
 import { io } from "socket.io-client";
 
 import { useHistory } from "react-router"
-import { WaitingRoom } from "../WaitingRoom";
 import { useParams } from "react-router-dom";
 import './index.css'
+import { WaitingRoom } from "..";
+import { render } from "@testing-library/react";
+import { Link } from "react-router-dom";
 
 
   // Need to fetch categories
@@ -16,7 +18,7 @@ import './index.css'
   //need create game button
 
 
-const CreateRoom = () =>{
+const CreateRoom = ({setGame}) =>{
     const [category, setCategory] = useState([]);const history = useHistory();
 
     //create a function that maps 1-20
@@ -44,7 +46,7 @@ const CreateRoom = () =>{
     
     const [input, setInput ] = useState({options: {totalQuestions: 1 , category: "", level: "level" ,type:"multiple choice", encoding:'Default Encoding'}, host: "user",name: "lobby"})
 
-    let lobbyName = input.name
+    
 
 
     //handling connection to trial server
@@ -59,6 +61,7 @@ const CreateRoom = () =>{
     const postData = async() => {
         try{
         const data = await axios.post("http://localhost:8000/games", input)
+        setGame(data)
         //await (console.log(data))
         }
         catch(err) {
@@ -77,9 +80,8 @@ const CreateRoom = () =>{
         postData()
         console.log(input)
         setInput("")
-        history.push(`/Waiting-room/${lobbyName}`)
-        
-    }
+        //history.push(`/Waiting-room/${lobbyName}`)
+        render(<WaitingRoom/> )}
 
     function handleInput(e){
         const eventName = e.target.name;
