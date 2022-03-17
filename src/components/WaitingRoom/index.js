@@ -7,49 +7,53 @@ import "./index.css"
 
 
  
-const WaitingRoom = () => {
-    //useeffect for constantly checking players in lobby
-    //let {lobbyName} = useParams()
-    const [lobbyData, setLobbyData] = useState("")
-    const [players, setPlayers] = useState("")
-    const {input} = this.props.location.input
-    const getData = async() => { 
-    const {data} = await axios.get(`http://localhost:8000/games/${input}`)
-    //console.log(data[0].name)
-    console.log(data)
-    setLobbyData(data)
-    setPlayers(data.players)
-    //console.log(lobbyData)
-    //console.log(lobbyData)
-    const socket = await io("http://localhost:8000");
-    //after post request look for lobby with specified name
-    socket.on("connect", () => {
-        console.log("connected to socket", socket.id)})
-    socket.emit("setusername", (data))
-    socket.emit('joinroom',(data.name))
-    socket.on('game', (message) => {
-        console.log(message)
-    })
+const WaitingRoom = ({ setGame, gameData, socket }) => {
+    // useeffect for constantly checking players in lobby
+    // let {lobbyName} = useParams()
+    // const [lobbyData, setLobbyData] = useState("")
+    // const [players, setPlayers] = useState("")
+    // const {input} = this.props.location.input
+    // const getData = async() => { 
+    // console.log(data[0].name)
+    // console.log(data)
+    // setLobbyData(data)
+    // setPlayers(data.players)
+    // console.log(lobbyData)
+    // console.log(lobbyData)
+    // after post request look for lobby with specified name
+    // socket.on("connect", () => {
+    //     console.log("connected to socket", socket.id)})
+    // socket.emit("setusername", (data))
+    // socket.emit('joinroom',(data.name))
+    console.log(gameData);
 
-       
-        
     
-    if(data.players.length == 2){
-    window.open(`/Quiz/${data.options.category}/${data.options.level}/${data.options.totalQuestions}`)}}
-useEffect(() => {
-    getData()
-},[])     
+    socket.on('game', (username) => {
+        setGame({
+            ...gameData,
+            players: [...gameData.players, username]
+        });
+    });
+    
+    // if(data.players.length == 2){
+    // window.open(`/Quiz/${data.options.category}/${data.options.level}/${data.options.totalQuestions}`)}}
+    // useEffect(() => {
+    //     getData()
+    // },[])     
        
       
        return(
         <>
         <div>
             <h1>Hello world</h1>
-            <h3>{lobbyData.name}</h3>
-            
-           
-            
-            
+            <h3>{gameData.name}</h3>
+            <ul>
+            {
+                gameData.players.map(player => (
+                    <li>{player}</li>
+                ))
+            }
+            </ul>
         </div>
         </>
         

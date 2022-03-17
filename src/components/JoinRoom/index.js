@@ -6,7 +6,7 @@ import { useParams } from 'react-router-dom';
 import {io} from "socket.io-client";
 import './index.css'
 
-const JoinRoom = () => {
+const JoinRoom = ({ socket, setGame }) => {
 
     const history = useHistory();
   
@@ -29,20 +29,22 @@ const JoinRoom = () => {
     };
 
     const handleSubmit = e => {
+        e.preventDefault();
         let lobbyName = state.lobbyname.replace(/\s/g, "%20");
         let nickName = state.nickname
         console.log(state)
-
         // add person to the players array
         const toSend = { username: nickName };
         axios.post(`http://localhost:8000/games/${lobbyName}`, toSend)
-        .then(response => console.log(response))
+        .then(response => {
+            setGame(response.data);
+        })
         .catch(error => {
             console.error('There was an error!', error);
         });
-        const socket =  io("http://localhost:8000");
-        //socket.emit("setusername", (data))
-        history.push(`/Waiting-room/${lobbyName}`)
+        socket.emit("setusername", nickName);
+        socket.emit("joinroom", lobbyName);
+        // history.push(`/Waiting-room/${lobbyName}`)
     }
 
     

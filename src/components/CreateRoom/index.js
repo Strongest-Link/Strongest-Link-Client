@@ -18,15 +18,15 @@ import { Link } from "react-router-dom";
   //need create game button
 
 
-const CreateRoom = ({setGame}) =>{
-    const [category, setCategory] = useState([]);const history = useHistory();
+const CreateRoom = ({setGame, socket}) =>{
+    const [category, setCategory] = useState([]);
+    const history = useHistory();
 
     //create a function that maps 1-20
 
     const fetchCategories = async () => {
         try{
             const data = await axios.get("https://opentdb.com/api_category.php")
-            console.log(data.data.trivia_categories)
             const response = data.data.trivia_categories
             setCategory(response)
         }
@@ -44,7 +44,7 @@ const CreateRoom = ({setGame}) =>{
     }, [])
 
     
-    const [input, setInput ] = useState({options: {totalQuestions: 1 , category: "", level: "level" ,type:"multiple choice", encoding:'Default Encoding'}, host: "user",name: "lobby"})
+    const [input, setInput ] = useState({options: {totalQuestions: 5 , category: 9, level: "easy"}, host: "user",name: "lobby"})
 
     
 
@@ -58,18 +58,23 @@ const CreateRoom = ({setGame}) =>{
 
     
 
-    const postData = async() => {
-        try{
-        const data = await axios.post("http://localhost:8000/games", input)
-        setGame(data)
-        //await (console.log(data))
-        }
-        catch(err) {
-            console.log("Error sending lobby data")
-        }
+    const postData = () => {
+        return new Promise(async (resolve, reject) => {
+            try{
+                socket.emit("setusername", input.host);
+                socket.emit("joinroom", input.name);
+                const { data } = await axios.post("http://localhost:8000/games", input)
+                setGame(data);
+                resolve();
+            }
+            catch(err) {
+                console.log("Error sending lobby data");
+                reject("Error sending lobby data");
+            }
+        });
     }
 
-    function handleSubmit(e){
+    async function handleSubmit(e){
         //store data in a state
         //post request to server
         //server creates room based on data
@@ -77,11 +82,12 @@ const CreateRoom = ({setGame}) =>{
         //connect to specified room
         //get data about room from localhost route
         e.preventDefault();
-        postData()
+        await postData();
         console.log(input)
-        setInput("")
+        setInput({options: {totalQuestions: 5 , category: 9, level: "easy"}, host: "user",name: "lobby"})
         //history.push(`/Waiting-room/${lobbyName}`)
-        render(<WaitingRoom/> )}
+        // render(<WaitingRoom/> )
+    }
 
     function handleInput(e){
         const eventName = e.target.name;
@@ -101,8 +107,6 @@ const CreateRoom = ({setGame}) =>{
         if (eventName === 'lobbyname') {
             setInput({ ...input, name: e.target.value });
         }
-
-        console.log(input)
     }
 
     return (
@@ -116,7 +120,7 @@ const CreateRoom = ({setGame}) =>{
             className="categories"
             name = "category"
             onChange={handleInput} >
-                {category.map(testing => <option value={testing.id}>{testing.name}</option>)}
+                {category.map(testing => <option key={testing.id} value={testing.id}>{testing.name}</option>)}
             </select>
 
             <h3>Difficulty</h3>
