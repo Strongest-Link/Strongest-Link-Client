@@ -40,8 +40,8 @@ const JoinRoom = () => {
         .catch(error => {
             console.error('There was an error!', error);
         });
-        const socket = await io("http://localhost:8000");
-        socket.emit("setusername", (data))
+        const socket =  io("http://localhost:8000");
+        //socket.emit("setusername", (data))
         history.push(`/Waiting-room/${lobbyName}`)
     }
 

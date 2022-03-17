@@ -1,24 +1,27 @@
+import { render } from "@testing-library/react";
 import React from "react";
 import * as components from "../../components/"
 
-
+//a box with createroom
+//loads form to create game
+//renders to waiting room
 const SPA = () => {
-    function handleClick(e){
-
-
+    const clickCreate = async (e) => {
+        e.preventDefault();
+        render(
+            <components.CreateRoom/>
+        )
     }
 
-    const 
+    
     return(
         <>
-        <div>
-            {components.CreateRoom}
-            {onclick = {}}
+      
+            <button onClick={clickCreate}
+            > Create room</button>
             
-        </div>
-        <div>
-            {components.JoinRoom}
-        </div>
+    
+       
         </>
 
     )
