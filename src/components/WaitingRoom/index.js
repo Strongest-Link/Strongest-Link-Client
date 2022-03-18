@@ -18,7 +18,9 @@ const WaitingRoom = ({ setGame, gameData, socket }) => {
   const renderPlayers = () => {
     return (
       <>
-        <ul>
+        <h2>Current Players:</h2>
+        <ul className = "players">
+          
           {gameData.players.map((player, index) => (
             <li key={index}>{player}</li>
           ))}
@@ -33,21 +35,21 @@ const WaitingRoom = ({ setGame, gameData, socket }) => {
   };
 
   return (
-    <>
-      <div>
+    <div className = "Waiting">
+      <div >
         <h1>{gameData.name}</h1>
         <div>{renderPlayers()}</div>
         <button onClick={handleSubmit}>Start Game</button>
       </div>
       <h1>Scores: </h1>
-      <ul>
+      <ul className="players">
           {
           Object.keys(gameData.scores).map((player, index) => (
             <li key={index}>{player}: {gameData.scores[player]}</li>
           ))
           }
       </ul>
-    </>
+    </div>
   );
 };
 export default WaitingRoom;
