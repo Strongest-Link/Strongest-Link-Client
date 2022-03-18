@@ -1,49 +1,46 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-import { io } from "socket.io-client";
-import { useParams } from "react-router-dom/cjs/react-router-dom.min";
-import "./index.css"
+import React, { useEffect } from "react";
+import "./index.css";
 
+const WaitingRoom = ({ setGame, gameData, socket }) => {
+  useEffect(() => {
+    socket.on("joinroom", (username) => {
+      setGame({
+        ...gameData,
+        players: [...gameData.players, username]
+      });
+    });
+    socket.on("game", (game) => {
+      setGame(game);
+      console.log("start game");
+    });
+  }, [gameData]);
 
+  const renderPlayers = () => {
+    return (
+      <>
+        <ul>
+          {gameData.players.map((player, index) => (
+            <li key={index}>{player}</li>
+          ))}
+        </ul>
+      </>
+    );
+  };
 
- 
-const WaitingRoom = () => {
-    //useeffect for constantly checking players in lobby
-    let {lobbyName} = useParams()
-    const [lobbyData, setLobbyData] = useState("")
-    const [players, setPlayers] = useState("")
-    const getData = async() => {
-    const {data} = await axios.get(`http://localhost:8000/games/${lobbyName}`)
-    //console.log(data[0].name)
-    console.log(data)
-    setLobbyData(data)
-    setPlayers(data.players)
-    //console.log(lobbyData)
-    //console.log(lobbyData)
-    const socket = io("http://localhost:8000")
-    socket.emit("Host has joined waiting room", )
-    if(data.players.length == 2){
-    window.open(`/Quiz/${data.options.category}/${data.options.level}/${data.options.totalQuestions}`)}}
-useEffect(() => {
-    getData()
-},[])     
-       
-      
-       return(
-        <>
-        <div>
-            <h1>Hello world</h1>
-            <h2>Waiting room: {lobbyData.name}</h2>
-            <h3>{players}</h3>
-           
-            
-            
-        </div>
-        </>
-        
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    socket.emit("startgame", { lobbyName: gameData.name, roomId: gameData.id });
+  };
 
-    )
-  
-    
-}
-export default WaitingRoom
+  return (
+    <>
+      <div>
+        <h1>Hello world</h1>
+        <h3>{gameData.name}</h3>
+        <div>{renderPlayers()}</div>
+        <button onClick={handleSubmit}>Start Game</button>
+      </div>
+    </>
+  );
+};
+export default WaitingRoom;
