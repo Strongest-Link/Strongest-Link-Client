@@ -2,6 +2,7 @@ import { SocketContext } from "../../context/socket";
 import React, { useEffect, useContext, useState } from "react";
 import * as components from "../../components/";
 import Quiz from "../../pages/Quiz";
+import "./index.css";
 
 //a box with createroom
 //loads form to create game
@@ -13,11 +14,12 @@ const SPA = () => {
     socket.on("connect", () => {
       console.log(socket.id);
     });
-    return () => socket.disconnect();
-  }, []);
+    // return () => socket.disconnect();
+  });
 
   const [game, setGame] = useState("");
   const [mode, setMode] = useState("");
+
   const clickCreate = async (e) => {
     e.preventDefault();
     setMode("create");
@@ -32,7 +34,7 @@ const SPA = () => {
     <>
       {!game ? (
         mode ? (
-          mode == "create" ? (
+          mode === "create" ? (
             <components.CreateRoom setGame={setGame} socket={socket} />
           ) : (
             <components.JoinRoom setGame={setGame} socket={socket} />
@@ -44,7 +46,7 @@ const SPA = () => {
           </div>
         )
       ) : game.active ? (
-        <Quiz gameData={game} />
+        <Quiz setGame={setGame} gameData={game} socket={socket} />
       ) : (
         <components.WaitingRoom
           setGame={setGame}

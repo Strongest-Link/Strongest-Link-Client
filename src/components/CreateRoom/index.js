@@ -1,26 +1,15 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { io } from "socket.io-client";
-
-import { useHistory } from "react-router";
-import { useParams } from "react-router-dom";
 import "./index.css";
-import { WaitingRoom } from "..";
-import { render } from "@testing-library/react";
-import { Link } from "react-router-dom";
-
-// Need to fetch categories
-//need to pick number of qns
-//need to set difficulty
-//need to hard code multiple choice
-//default encoding
-//need create game button
 
 const CreateRoom = ({ setGame, socket }) => {
   const [category, setCategory] = useState([]);
-  const history = useHistory();
-
   //create a function that maps 1-20
+  const [input, setInput] = useState({
+    options: { totalQuestions: 5, category: 9, level: "easy" },
+    host: "user",
+    name: "lobby"
+  });
 
   const fetchCategories = async () => {
     try {
@@ -31,52 +20,25 @@ const CreateRoom = ({ setGame, socket }) => {
       console.log("cant fetch categories");
     }
   };
-
   useEffect(() => {
     fetchCategories();
-    const socket = io("http://localhost:8000");
-    socket.on("connect", () => {
-      console.log("connected to socket", socket.id);
-    });
   }, []);
 
-  const [input, setInput] = useState({
-    options: { totalQuestions: 5, category: 9, level: "easy" },
-    host: "user",
-    name: "lobby"
-  });
-
-  //handling connection to trial server
-  //post data to server
-  //server creates lobby with lobbyname
-  //connect to room with lobbyname and register host
-  //once connected send host to waiting room
-
-  const postData = () => {
-    return new Promise(async (resolve, reject) => {
-      try {
-        socket.emit("setusername", input.host);
-        socket.emit("joinroom", input.name);
-        const { data } = await axios.post("http://localhost:8000/games", input);
-        setGame(data);
-        resolve();
-      } catch (err) {
-        console.log("Error sending lobby data");
-        reject("Error sending lobby data");
-      }
-    });
+  const postData = async () => {
+    try {
+      const { data } = await axios.post("http://localhost:8000/games", input);
+      setGame(data);
+    } catch (err) {
+      console.log("Error sending lobby data");
+    }
   };
 
   async function handleSubmit(e) {
-    //store data in a state
-    //post request to server
-    //server creates room based on data
-    //initialise a connection to socket.io
-    //connect to specified room
-    //get data about room from localhost route
     e.preventDefault();
     await postData();
-    console.log(input);
+    await socket.emit("joinroom", input.name);
+    await socket.emit("setusername", input.host);
+    socket.username = input.host;
     setInput({
       options: { totalQuestions: 5, category: 9, level: "easy" },
       host: "user",
