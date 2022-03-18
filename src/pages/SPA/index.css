@@ -2,3 +2,27 @@
   margin: 1rem;
   width: 95vw;
 }
+
+button {
+  background-color: #ddd;
+  border: none;
+  color: black;
+  padding: 10px 25px;
+  text-align: center;
+  display: inline-block;
+  margin-left: 30px;
+  margin-right: 30px;
+  margin-top: 30px;
+  margin-bottom: 245px;
+  border-radius: 16px;
+}
+
+.button-div {
+  display: flex;
+  justify-content: center;
+}
+
+.cr-header {
+  text-align: center;
+  margin-bottom: 30px;
+}

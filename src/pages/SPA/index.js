@@ -40,10 +40,13 @@ const SPA = () => {
             <components.JoinRoom setGame={setGame} socket={socket} />
           )
         ) : (
-          <div>
-            <button onClick={clickCreate}> Create room</button>
-            <button onClick={clickJoin}> Join room</button>
-          </div>
+          <>
+          <h1 className="cr-header">Create or Join a Game</h1>
+            <div className="button-div">
+              <button onClick={clickCreate}> Create room</button>
+              <button onClick={clickJoin}> Join room</button>
+            </div>
+          </>
         )
       ) : game.active ? (
         <Quiz setGame={setGame} gameData={game} socket={socket} />
