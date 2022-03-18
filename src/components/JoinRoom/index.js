@@ -6,7 +6,6 @@ import "./index.css";
 const JoinRoom = ({ socket, setGame }) => {
   const [state, setState] = useState({ lobbyname: "", nickname: "" });
   const [lobbydata, setLobbydata] = useState([]);
-  let lobbyName = state.lobbyname;
 
   const handleInput = (e) => {
     e.preventDefault();
@@ -22,7 +21,7 @@ const JoinRoom = ({ socket, setGame }) => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     let lobbyName = state.lobbyname.replace(/\s/g, "%20");
     let nickName = state.nickname;
@@ -36,8 +35,10 @@ const JoinRoom = ({ socket, setGame }) => {
       .catch((error) => {
         console.error("There was an error!", error);
       });
-    socket.emit("setusername", nickName);
-    socket.emit("joinroom", lobbyName);
+    await socket.emit("setusername", nickName);
+    socket.username = nickName;
+    socket.username = nickName;
+    await socket.emit("joinroom", lobbyName);
     // history.push(`/Waiting-room/${lobbyName}`)
   };
 
@@ -90,9 +91,9 @@ const JoinRoom = ({ socket, setGame }) => {
         <br />
       </div>
       <h1 className="lobbies-header">Open Lobbies</h1>
-      {/* <div className="lobby-div">
+      <div className="lobby-div">
         <LobbyList results={lobbydata} />
-      </div> */}
+      </div>
     </div>
   );
 };
