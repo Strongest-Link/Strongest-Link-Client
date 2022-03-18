@@ -37,7 +37,10 @@ const SPA = () => {
           mode === "create" ? (
             <components.CreateRoom setGame={setGame} socket={socket} />
           ) : (
+            <>
+            <h1 className='join-h1'>Join A Game</h1>
             <components.JoinRoom setGame={setGame} socket={socket} />
+            </>
           )
         ) : (
           <>
