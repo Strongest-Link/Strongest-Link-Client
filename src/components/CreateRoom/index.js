@@ -71,7 +71,7 @@ const CreateRoom = ({ setGame, socket }) => {
   return (
     <>
       <h1 className="create-header">Create a game</h1>
-      <section>
+      <section className="create-section">
         <form className="gameForm" onSubmit={handleSubmit}>
           <h3>Category</h3>
           <select className="categories" name="category" onChange={handleInput}>
