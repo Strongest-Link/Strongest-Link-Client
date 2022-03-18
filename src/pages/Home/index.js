@@ -5,8 +5,8 @@ import strongestLink from '../../images/sl-home.png'
 const Home = () => {
     return (
         <>
-            <img src={strongestLink} width="100%"/>
-            <div className='rules-div'>
+            <img role="img" src={strongestLink} width="100%"/>
+            <div role="rules" className='rules-div'>
                 <h2>RULES: </h2>
                 <ul>
                     <li>1</li>

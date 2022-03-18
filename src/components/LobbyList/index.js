@@ -30,7 +30,13 @@ const LobbyList = ({ results }) => {
     );
   });
 
-  return <div>{displayResults}</div>;
+  return (
+    <>
+      <div role="displayResults">
+        <ul>{displayResults}</ul>
+      </div>
+    </>
+  );
 };
 
 export default LobbyList;

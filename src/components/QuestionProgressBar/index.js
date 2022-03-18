@@ -6,11 +6,11 @@ class QuestionProgressBar extends Component {
 
 
         return (
-            <div id="progressGroup"> 
-                <p id="progressText" className="hud-prefix">
-                    Question <span id="questionCounter">0</span>/{this.props.maxQuestions}
+            <div role="progressGroup" id="progressGroup"> 
+                <p role="progressText" id="progressText" className="hud-prefix">
+                    Question <span role="questionCounter" id="questionCounter">0</span>/{this.props.maxQuestions}
                 </p>
-                <div id="progressBar">
+                <div role="progressBar" id="progressBar">
                     <div id="progressBarFull"></div>
                 </div>
             </div>

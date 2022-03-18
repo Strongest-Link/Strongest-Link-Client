@@ -7,9 +7,9 @@ class AnswerA extends Component {
         var decodedText = decodeURIComponent(this.props.answerText);
 
         return (
-            <div className="choice-container">
+            <div role="choice-container" className="choice-container">
             <p className="choice-prefix">A</p>
-            <p className="choice-text" data-number='1'>{decodedText}</p>
+            <p role="choice-text" className="choice-text" data-number='1'>{decodedText}</p>
             </div>
         );
     }

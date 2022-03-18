@@ -70,11 +70,12 @@ const CreateRoom = ({ setGame, socket }) => {
 
   return (
     <>
-      <h1 className="create-header">Create a game</h1>
+      <div role="Create">
+      <h1 role="create-header" className="create-header">Create a game</h1>
       <section>
         <form className="gameForm" onSubmit={handleSubmit}>
           <h3>Category</h3>
-          <select className="categories" name="category" onChange={handleInput}>
+          <select role="category" className="categories" name="category" onChange={handleInput}>
             {category.map((testing) => (
               <option key={testing.id} value={testing.id}>
                 {testing.name}
@@ -83,7 +84,7 @@ const CreateRoom = ({ setGame, socket }) => {
           </select>
 
           <h3>Difficulty</h3>
-          <select
+          <select role="difficulty"
             className="difficulty"
             name="difficulty"
             onChange={handleInput}
@@ -94,7 +95,7 @@ const CreateRoom = ({ setGame, socket }) => {
           </select>
 
           <h3>Number of Questions</h3>
-          <select
+          <select role="NumberOfQuestions"
             className="NumberOfQuestions"
             name="NumberOfQuestions"
             onChange={handleInput}
@@ -117,6 +118,7 @@ const CreateRoom = ({ setGame, socket }) => {
           />
         </form>
       </section>
+      </div>
     </>
   );
 };

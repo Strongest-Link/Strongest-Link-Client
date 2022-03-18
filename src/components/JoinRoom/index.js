@@ -56,10 +56,10 @@ const JoinRoom = ({ socket, setGame }) => {
   }, []);
 
   return (
-    <div>
+    <div role="joinRoom">
       <div>
         <form onSubmit={handleSubmit}>
-          <label htmlFor="lobbyId">
+          <label role="textLobby" htmlFor="lobbyId">
             <h3>Enter Lobby Name</h3>
           </label>
           <input
@@ -72,7 +72,7 @@ const JoinRoom = ({ socket, setGame }) => {
             required
           />
           <br />
-          <label htmlFor="nickname">
+          <label role="textNickname" htmlFor="nickname">
             <h3>Enter Your Nickname</h3>
           </label>
           <input
@@ -85,7 +85,7 @@ const JoinRoom = ({ socket, setGame }) => {
             required
           />
           <br />
-          <button type="submit">Join</button>
+          <button role="button" type="submit">Join</button>
         </form>
         <br />
         <br />

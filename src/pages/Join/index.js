@@ -5,7 +5,7 @@ import './index.css';
 const Join = () => {
     return (
         <>
-        <h1 className='join-h1'>Join A Game</h1>
+        <h1 role="joinAGame" className='join-h1'>Join A Game</h1>
         <JoinRoom />
         </>
     )

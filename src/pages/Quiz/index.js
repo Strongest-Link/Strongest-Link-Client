@@ -87,7 +87,7 @@ function Quiz({ setGame, gameData, socket }) {
   }, [gameData]);
 
   return (
-    <div className="container">
+    <div role="div" className="container">
       <div id="game" className="justify-center flex-column">
         <div id="hud">
           <div id="hud-item">

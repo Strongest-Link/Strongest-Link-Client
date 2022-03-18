@@ -40,7 +40,7 @@ const SPA = () => {
             <components.JoinRoom setGame={setGame} socket={socket} />
           )
         ) : (
-          <div>
+          <div role="buttons">
             <button onClick={clickCreate}> Create room</button>
             <button onClick={clickJoin}> Join room</button>
           </div>

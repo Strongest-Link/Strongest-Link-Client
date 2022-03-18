@@ -5,7 +5,7 @@ import logo from '../../images/sl-logo.png'
 
 const Navbar = () => {
     return (
-        <nav >
+        <nav role="nav">
             <NavLink exact to="/" activeClassName="active"><img
                 src={logo}
                 alt="Logo"

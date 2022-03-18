@@ -34,11 +34,15 @@ const WaitingRoom = ({ setGame, gameData, socket }) => {
 
   return (
     <>
-      <div>
+      <div role="waitingRoom">
         <h1>Hello world</h1>
         <h3>{gameData.name}</h3>
-        <div>{renderPlayers()}</div>
-        <button onClick={handleSubmit}>Start Game</button>
+        <ul>
+          {gameData.players.map((player, index) => (
+            <li key={index}>{player}</li>
+          ))}
+        </ul>
+        <button role="startGame" onClick={handleSubmit}>Start Game</button>
       </div>
     </>
   );
