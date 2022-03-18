@@ -8,9 +8,9 @@ class AnswerD extends Component {
 
         return (
     
-            <div className="choice-container">
+            <div role="choice-container" className="choice-container">
             <p className="choice-prefix">D</p>
-            <p className="choice-text" data-number='4'>{decodedText}</p>
+            <p role="choice-text" className="choice-text" data-number='4'>{decodedText}</p>
             </div>
         );
     }

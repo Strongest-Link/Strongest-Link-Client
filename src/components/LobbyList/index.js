@@ -7,10 +7,10 @@ const LobbyList = ({ results }) => {
 
     return (
       <>
-        <div className="wholeLobby">
+        <div role="wholeLobby" className="wholeLobby">
           <div className="eachLobby">
             <span className="lobbyname-div">
-              <span className="lobbyname">{eachLobby.name}</span>
+              <span role="lobbyname" className="lobbyname">{eachLobby.name}</span>
             </span>
             <div className="info-div">
                 <div><div className="small-header">Host: </div><span>{eachLobby.host}</span></div>
@@ -24,7 +24,7 @@ const LobbyList = ({ results }) => {
 
   return (
     <>
-      <div>
+      <div role="displayResults">
         <ul>{displayResults}</ul>
       </div>
     </>

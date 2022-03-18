@@ -9,7 +9,7 @@ import "./index.css"
  
 const WaitingRoom2 = () => {
     //useeffect for constantly checking players in lobby
-    let {lobbyName} = useParams()
+    let {lobbyName} = useParams();
     const [lobbyData, setLobbyData] = useState("")
     const [players, setPlayers] = useState("")
     const getData = async() => {
@@ -33,9 +33,9 @@ useEffect(() => {
       
        return(
         <>
-        <div>
+        <div role="waitingRoom2">
             <h1>Hello world</h1>
-            <h2>Waiting room: {lobbyData.name}</h2>
+            <h2 role="text">Waiting room: {lobbyData.name}</h2>
             <div><div className="small-header">Players: </div> {players.map((eachPlayer) => {return ( <span>{eachPlayer} <b>|</b> </span>)})}</div>
            
             

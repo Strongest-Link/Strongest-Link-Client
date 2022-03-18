@@ -11,7 +11,7 @@ class Question extends Component {
         var decodedText = decodeURIComponent(this.props.questionText);
 
         return (
-            <h2 id="question">{decodedText}</h2>
+            <h2 role="question" id="question">{decodedText}</h2>
         );
     }
 

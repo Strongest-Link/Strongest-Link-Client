@@ -10,11 +10,14 @@ import QuestionProgressBar from "../../components/QuestionProgressBar";
 
 
 
-function Quiz({ gameData }) {
+function Quiz({ gameData, socket  }) {
 
   let numberOfQuestions  = gameData.questions.length;
 
   console.log(gameData.questions);
+  console.log(socket);
+
+
 
   // //CONSTANTS
   const CORRECT_BONUS = 10;
@@ -139,6 +142,7 @@ function Quiz({ gameData }) {
     function incrementScore(num) {
       score += num;
       scoreText.innerText = score;
+   
     }
 
     getNewQuestion();
@@ -146,7 +150,7 @@ function Quiz({ gameData }) {
   }, [numberOfQuestions]); // These properties must not change otherwise the fetching won't pause for each question
 
   return (
-    <div className="container">
+    <div role="div" className="container">
       <div id="game" className="justify-center flex-column">
         <div id="hud">
           <div id="hud-item">

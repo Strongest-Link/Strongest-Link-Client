@@ -28,13 +28,13 @@ const LeaderBoardTable = () => {
 
 
     return (
-        <div className="leaderboard-table">
+        <div role="leaderboard-table" className="leaderboard-table">
             <table className='table'>
                 <tbody>
                     <tr>
-                        <th className='table-header'>Rank</th>
-                        <th className='table-header'>Username</th>
-                        <th className='table-header'>Score</th>
+                        <th role="Rank" className='table-header'>Rank</th>
+                        <th role="Username" className='table-header'>Username</th>
+                        <th role="Score" className='table-header'>Score</th>
                     </tr>
                 </tbody>
                 {/* change this after to get the data from the api */}
