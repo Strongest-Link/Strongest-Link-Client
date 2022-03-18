@@ -11,18 +11,26 @@ const WaitingRoom = ({ setGame, gameData, socket }) => {
     });
     socket.on("game", (game) => {
       setGame(game);
+      console.log("start game");
     });
-  });
+  }, [gameData]);
+
+  const renderPlayers = () => {
+    return (
+      <>
+        <ul>
+          {gameData.players.map((player, index) => (
+            <li key={index}>{player}</li>
+          ))}
+        </ul>
+      </>
+    );
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     socket.emit("startgame", { lobbyName: gameData.name, roomId: gameData.id });
   };
-  // if(data.players.length == 2){
-  // window.open(`/Quiz/${data.options.category}/${data.options.level}/${data.options.totalQuestions}`)}}
-  // useEffect(() => {
-  //     getData()
-  // },[])
 
   return (
     <>
