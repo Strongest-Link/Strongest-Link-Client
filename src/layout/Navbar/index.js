@@ -12,10 +12,9 @@ const Navbar = () => {
                 className="nav-icon"
             />
             </NavLink>
-            <NavLink to="/create-lobby" activeClassName="active" className="nav-link right-link">Create Lobby</NavLink>
-            <NavLink to="/join-lobby" activeClassName="active" className="nav-link">Join Lobby</NavLink>
+            <NavLink to="/about" activeClassName="active" className="nav-link right-link">About</NavLink>
+            <NavLink to="/SPA" activeClassName="active" className="nav-link">Game</NavLink>
             <NavLink to="/leaderboard" activeClassName="active" className="nav-link">Leaderboard</NavLink>
-            <NavLink to="/SPA" activeClassName="active" className="nav-link">SPA</NavLink>
         </nav>
     )
 }
