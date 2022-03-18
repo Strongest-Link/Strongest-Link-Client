@@ -44,3 +44,7 @@ input {
   .lobbies-header {
       text-align: center;
   }
+
+  .join-div {
+      margin-bottom: 50px;
+  }

@@ -56,7 +56,7 @@ const JoinRoom = ({ socket, setGame }) => {
   }, []);
 
   return (
-    <div>
+    <div className="join-div">
       <div>
         <form onSubmit={handleSubmit}>
           <label htmlFor="lobbyId">
