@@ -37,13 +37,19 @@ const SPA = () => {
           mode === "create" ? (
             <components.CreateRoom setGame={setGame} socket={socket} />
           ) : (
+            <>
+            <h1 className='join-h1'>Join A Game</h1>
             <components.JoinRoom setGame={setGame} socket={socket} />
+            </>
           )
         ) : (
-          <div>
-            <button onClick={clickCreate}> Create room</button>
-            <button onClick={clickJoin}> Join room</button>
-          </div>
+          <>
+          <h1 className="cr-header">Create or Join a Game</h1>
+            <div className="button-div">
+              <button onClick={clickCreate}> Create room</button>
+              <button onClick={clickJoin}> Join room</button>
+            </div>
+          </>
         )
       ) : game.active ? (
         <Quiz setGame={setGame} gameData={game} socket={socket} />
