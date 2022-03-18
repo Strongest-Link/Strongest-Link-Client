@@ -13,7 +13,7 @@ const WaitingRoom = ({ setGame, gameData, socket }) => {
       setGame(game);
       console.log("start game");
     });
-  }, [gameData]);
+  }, []);
 
   const renderPlayers = () => {
     return (
@@ -35,11 +35,18 @@ const WaitingRoom = ({ setGame, gameData, socket }) => {
   return (
     <>
       <div>
-        <h1>Hello world</h1>
-        <h3>{gameData.name}</h3>
+        <h1>{gameData.name}</h1>
         <div>{renderPlayers()}</div>
         <button onClick={handleSubmit}>Start Game</button>
       </div>
+      <h1>Scores: </h1>
+      <ul>
+          {
+          Object.keys(gameData.scores).map((player, index) => (
+            <li key={index}>{player}: {gameData.scores[player]}</li>
+          ))
+          }
+      </ul>
     </>
   );
 };
